@@ -289,7 +289,7 @@ FROM dept;
 ---grp7 실습
 --선생님 답
 SELECT COUNT(*)
-FROM  
+FROM   
     (SELECT deptno
        FROM emp
        GROUP BY deptno);
@@ -303,3 +303,5 @@ GROUP BY deptno;
 
 --C언어에서 포기 포인트: 배열, 포인터, 파일 입출력
 --데이터베이스에서의 포인트: GROUP BY(오늘배운거), JOIN (내일배울거)
+
+
