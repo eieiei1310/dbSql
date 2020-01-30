@@ -315,6 +315,7 @@ FROM emp;
 
 --emp 테이블에서 job 컬럼의 값이 SALESMAN 이면서 sal이 1400보다 크면  SAL* 1.05 리턴
 --                            SALESMAN 이면서 sal이 1400보다 작으면  SAL* 1.1 리턴
+--                            MANAGER 이면 SAL* 1.1 리턴
 --                             PRESIDENT 이면 SAL * 1.2 리턴
 --                              그밖의 사람들은 SAL을 리턴 해주기
 
@@ -325,8 +326,9 @@ FROM emp;
 
 SELECT ename, job, sal,
         CASE 
-            WHEN job = 'SALEMAN' AND sal > 1400 THEN sal * 1.05
-            WHEN job = 'MANAGER' AND sal < 1500 THEN sal * 1.1
+            WHEN job = 'SALESMAN' AND sal >= 1400 THEN sal * 1.05
+            WHEN job = 'SALESMAN' AND sal <= 1400 THEN sal * 1.1
+            WHEN job = 'MANAGER' THEN sal * 1.1
             WHEN job = 'PRESIDENT' THEN sal * 1.2
             ELSE sal
         END AS "BONUS_SAL"            
@@ -334,13 +336,28 @@ FROM emp;
 
 -- DECODE, CASE 혼용해서 풀기
 
+SELECT ename, job, sal,
+       DECODE(job, 'SALESMAN',  DECODE(job, 'SMITH', 'STOUTHHHH'),
+                    'MANAGER', sal * 1.1,
+                    'PRESIDENT', sal * 1.2, sal)AS "BONUS_SAL"
+FROM emp; --다중 DECODE 성공함!!!
+
+
+-------------------풀었다!!!!!!!!!!!!!!!!!!!----------------------
 
 SELECT ename, job, sal,
-       DECODE(job, 'SALESMAN', sal * 1.05,
-                    'MANAGER', sal * 1.1,
-                    'PRESIDENT', sal * 1.2, sal)AS "BONUS_SAL",
-                    
-FROM emp;
+       DECODE(job, 'PRESIDENT', sal * 1.2, 
+                   'MANAGER',sal * 1.1,
+                        CASE 
+                            WHEN job = 'SALESMAN' AND sal >= 1400 THEN sal * 1.05
+                            WHEN job = 'SALESMAN' AND sal <= 1400 THEN sal * 1.1
+                            ELSE sal
+                        END 
+                )AS "BONUS_SAL"
+FROM emp; 
+
+
+
 
 --해당 데이타 컬럼에 맞는 현을 써라...
 --숫자함수는 사실 중요X
