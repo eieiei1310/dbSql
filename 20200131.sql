@@ -258,4 +258,14 @@ FROM prod JOIN buyer ON (prod.prod_buyer = buyer.buyer_id);
 --join3 --> from 절에 .하나 더 찍고 기술해주기
 --join3 숙제입니다...
 
+--join3 풀어보기!!
+
+SELECT mem_id, mem_name ,prod_id, prod_name, cart_qty
+FROM prod, member, cart
+WHERE prod.prod_id = cart.cart_prod AND cart.cart_member = member.mem_id;
+
+
+
+
+
  
