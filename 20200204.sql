@@ -278,14 +278,14 @@ COMMIT; : 트랜잭션 확정
 
 --실습 SUB4;
 
+
 SELECT *
 FROM dept;
-SELECT *
-FROM emp;
 
-
-SELECT 
-FROM NOT IN ;
+SELECT deptno, dname, loc
+FROM dept 
+WHERE deptno NOT IN (SELECT deptno
+                     FROM emp);
 
 SELECT emp.deptno, dname, loc
 FROM emp JOIN dept ON(emp.deptno = dept.deptno);
