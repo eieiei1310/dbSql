@@ -340,8 +340,7 @@ ename (=)
 deptno(=), empno(LIKE 직원번호%) 
         ==> empno, deptno 으로 선택 가능, 그럴시 empno 삭제
 deptno(=),sal(BETWEEN)                 (deptno,sal)
-deptno(=)/ mgr 동반하
-면 유리,           (deptno,mgr)
+deptno(=)/ mgr 동반하면 유리,            (deptno,mgr)
 deptno, hiredate가 인덱스에 존재하면 유리 (deptno, hiredate)
         ==> deptno, sal, mgr, hiredate
 
