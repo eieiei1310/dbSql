@@ -449,10 +449,10 @@ FROM emp
 GROUP BY ROLLUP (job, deptno);
 
 
---다시 실습 decode로 바꿔보기
+--다시 실습 decode로 바꿔보기(과제)
 
 SELECT 
-    DECODE(GROUPING(job), 1,'총계'
+    DECODE(GROUPING(job), 1, DECODE(GROUPING(deptno), 1,'총계')
                         ,0,job) JOB,
         deptno, 
         SUM(sal + NVL(comm, 0)) sal
@@ -461,9 +461,24 @@ GROUP BY ROLLUP (job, deptno);
 
 
 
+--실습 GROUP_AD2-1
+
+SELECT 
+    CASE WHEN GROUPING(job) = 1 AND GROUPING(deptno) = 1 THEN '총'
+        else job
+        END job,
+        
+    CASE WHEN TO_CHAR(GROUPING(job)) = '0' AND TO_CHAR(GROUPING(deptno)) = '1' THEN '소계'
+        WHEN TO_CHAR(GROUPING(job)) = '1' AND  TO_CHAR(GROUPING(deptno)) = '1' THEN '계'
+        else TO_CHAR(deptno)
+        END deptno, 
+        
+        SUM(sal + NVL(comm, 0)) sal
+FROM emp 
+GROUP BY ROLLUP (job, deptno);
 
 
-;
+
 
 
 
