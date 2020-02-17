@@ -92,14 +92,18 @@ ORDER BY dname, job DESC;
 
 --2 DECODE 문
 
-SELECT DECODE(GROUPING(dname) || GROUPING(job) , '11', '총합',
-                                                  '00', dname,
-                                                  '01', dname) dname,
+SELECT DECODE(GROUPING(dname) || GROUPING(job) , '11', '총합', dname) dname,
        job, 
        SUM(sal + NVL(comm, 0)) sal
 FROM emp JOIN dept ON (emp.deptno = dept.deptno)
 GROUP BY ROLLUP (dname, job)
 ORDER BY dname, job DESC;
+
+
+SELECT dname, job, SUM(sal + NVL(comm, 0)) sal
+        , GROUPING(job)job , GROUPING(dname)dname
+FROM emp JOIN dept ON (emp.deptno = dept.deptno)
+GROUP BY ROLLUP(dname, job);
 
 
 --2 DECODE 문 소계도 넣어 보기
@@ -118,7 +122,7 @@ ORDER BY dname, job DESC;
 
 REPORT GROUP FUNCTION
 1. ROLLUP
-2. CUB
+2. CUBE
 3. GROUPING SETS
 
 활용도:
@@ -161,6 +165,7 @@ GROUP BY  job
 UNION ALL
 GROUP BY deptno;
 
+
 --UNION ALL을 하는지 UNION을 하는지 어떻게 아나요?
 SELECT job, SUM(sal) sal
 FROM emp
@@ -201,10 +206,11 @@ GROUP BY CUBE(job, deptno);
 혼종-------------------------------------------
 
 
-SELECT job, deptno, SUM(sal) sal
+SELECT job, deptno, mgr, SUM(sal) sal
 FROM emp
 GROUP BY job , ROLLUP(deptno), CUBE(mgr);
 
+-->있거나 없거나 없거나 있거나 둘중 하나
 
 GROUP BY job, deptno, mgr = GROUP BY job, deptno, mgr
 GROUP BY job, deptno = GROUP BY job, deptno
