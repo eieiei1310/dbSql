@@ -9,7 +9,7 @@ CONNECT BY PRIOR deptcd = p_deptcd;
 시작점 : 디자인팀
 연결은 : 상위부서;
 
-SELECT dept_h.*, LEVEL, LPAD(' ',(LEVEL - 1) * 4 ) || deptnm
+SELECT deptcd, LPAD(' ',(LEVEL - 1) * 4 ) || deptnm ,p_deptcd
 FROM dept_h
 START WITH deptnm = '디자인팀'
 CONNECT BY PRIOR p_deptcd = deptcd;
