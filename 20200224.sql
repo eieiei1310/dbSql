@@ -64,6 +64,7 @@ SQL 커서를 통해 개발자가 직접 데이터를 FETCH 함으로써 SELECT 결과를
     
 부서 테이블을 활용하여 모든 행에 대해 부서번호와 부서 이름을 CURSOR 을 통해
 FETCH, FETCH 된 결과를 확인;
+
 SET SERVEROUTPUT ON ;
 DECLARE 
     v_deptno dept.deptno%TYPE;
@@ -88,33 +89,10 @@ BEGIN
       FETCH dept_cursor INTO v_deptno , v_dname;
     DBMS_OUTPUT.PUT_LINE(v_deptno || ' : ' || v_dname);
     
-END;
-/
-
-
-SET SERVEROUTPUT ON ;
-DECLARE 
-    v_deptno dept.deptno%TYPE;
-    v_dname dept.dname%TYPE;
-    
-    CURSOR dept_cursor IS
-        SELECT deptno, dname
-        FROM dept;
         
-BEGIN
-    OPEN dept_cursor;
-    LOOP
-         FETCH dept_cursor INTO v_deptno , v_dname;
-         EXIT WHEN dept_cursor%NOTFOUND;
-         DBMS_OUTPUT.PUT_LINE(v_deptno || ' : ' || v_dname);
-         
-    END LOOP;
-    
 END;
 /
 
-SELECT *
-FROM dept;
 
 
 CURSOR 을 열고 닫는 과정이 다소 거추장스러움.
