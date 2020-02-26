@@ -272,7 +272,6 @@ CREATE OR REPLACE PACKAGE BODY names AS
         RETURN v_dname;
     END;
     
-    
     FUNCTION getEmpname(p_empno emp.empno%TYPE) RETURN VARCHAR2 AS
         v_ename emp.ename%TYPE;
     BEGIN
@@ -282,7 +281,8 @@ CREATE OR REPLACE PACKAGE BODY names AS
         
         RETURN v_ename;
     END;
-END; 
+END;
+/ 
 
 SELECT emp.*, NAMES.GETDEPTNAME(emp.deptno) dname
 FROM emp;

@@ -198,7 +198,7 @@ END;
 
 
 ----선생님이 한거----
-
+SET SERVEROUTPUT ON ;
 CREATE OR REPLACE PROCEDURE avgdt IS
     TYPE dt_tab IS TABLE OF dt%ROWTYPE INDEX BY BINARY_INTEGER;
     v_dt_tab dt_tab;
